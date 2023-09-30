@@ -5,7 +5,6 @@ const bd = require('./database/Config');
 const usuario =require('./routes/user');
 
 const app = express();
-
 app.use("/usuarios", usuario)
 
 

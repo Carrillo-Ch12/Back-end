@@ -1,8 +1,9 @@
 const express = require("express");
 const Router = express.Router();
 const db = require('../database/Config');
-const mostrar_usuario = require('../controllers/Usuarios')
+const juegos = require('../controllers/bilbioteca')
 
 
-Router.get('/',mostrar_usuario)
+Router.get('/',juegos)
+
 module.exports = Router;

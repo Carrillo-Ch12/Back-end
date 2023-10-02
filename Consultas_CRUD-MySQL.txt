@@ -1,0 +1,232 @@
+Consultas MySQL
+
+Consulta para mostrar los usuarios seguidos por Juan Perez:
+SELECT u.Nombre_usuario AS Usuario_Seguido
+FROM follow f
+INNER JOIN Usuario u ON f.Id_seguido = u.Id_usuario
+WHERE f.Id_seguidor = (
+    SELECT Id_usuario
+    FROM Usuario
+    WHERE Nombre_usuario = 'JuanPerez'
+);
+
+Consulta para mostrar los títulos de listas y videojuegos asociados al usuario con id 1:
+SELECT DISTINCT lv.Titulo_lista, v.Titulo
+FROM Videojuego v
+INNER JOIN contiene c ON v.Titulo = c.Titulo
+INNER JOIN lista_videojuegos lv ON c.Id_lista = lv.Id_lista
+WHERE lv.Id_usuario = 1;
+
+
+
+Consulta para mostrar los títulos de videojuegos que pertenecen a más de un género:
+SELECT v.Titulo, COUNT(p.Id_genero) AS Numero_de_Generos
+FROM Videojuego v
+INNER JOIN pertenece p ON v.Titulo = p.Titulo
+GROUP BY v.Titulo
+HAVING COUNT(p.Id_genero) > 1;
+
+
+Consultas Álgebra Relacional:
+
+
+Consulta para mostrar los usuarios seguidos por Juan Perez
+π u.Nombre_usuario(Usuario⋈f.Id_seguido=u.Id_usuario(Follow⋈f.Id_seguidor=u.Id_usuarioσ u.Nombre_usuario=′JuanPerez′(Usuario)))
+
+Consulta para mostrar los títulos de listas y videojuegos asociados a 'JuanPerez':
+π lv.Titulo_lista,v.Titulo((Videojuego⋈ c.Titulo=v.TituloContiene)⋈ lv.Id_lista=c.Id_listaσ lv.Id_usuario=1(Lista_Videojuegos))
+
+Consulta para mostrar los títulos de videojuegos que pertenecen a más de un género:
+π v.Titulo,Numero_de_Generos(Videojuego⋈v.Titulo=p.Titulo(ρ Numero_de_Generos/COUNT(p.Id_genero)(Pertenece)÷σ Numero_de_Generos>1(Pertenece)))
+
+
+DELETE 
+
+DELETE FROM comentario WHERE Id_comentario = 6;
+DELETE FROM lista_videojuegos WHERE Id_lista = 8;
+DELETE FROM interactua WHERE Titulo = 'Minecraft' AND Id_usuario = 5;
+
+DROP
+
+DROP TABLE follow;
+
+ALTER
+
+ALTER TABLE Follow
+add constraint Check_follow
+check(Id_seguidor<>id_seguido);
+
+ALTER TABLE Usuario
+ADD COLUMN Puntuacion INT;
+
+
+
+INSERT
+
+INSERT INTO Usuario (Nombre_usuario, Correo, Fecha_de_ingreso, Contraseña, Foto_de_perfil) VALUES
+('JuanPerez', 'juan.perez@gmail.com', '2023-09-25', 'Pass123!', 'juan.jpg'),
+('MariaGomez', 'maria.gomez@hotmail.com', '2023-09-26', 'Pwd456!', 'maria.jpg'),
+('LuisMartinez', 'luis.martinez@gmail.com', '2023-09-27', 'Secure789!', 'luis.jpg'),
+('AnaRodriguez', 'ana.rodriguez@outlook.com', '2023-09-28', '1234Ana!', 'ana.jpg'),
+('CarlosGonzalez', 'carlos.gonzalez@gmail.com', '2023-09-29', 'Pwd5678!', 'carlos.jpg'),
+('LauraLopez', 'laura.lopez@hotmail.com', '2023-09-30', 'Pwd2023!', 'laura.jpg'),
+('DiegoRamirez', 'diego.ramirez@gmail.com', '2023-10-01', 'RamirezPass!', 'diego.jpg'),
+('SofiaDiaz', 'sofia.diaz@outlook.com', '2023-10-02', 'SecurePwd!', 'sofia.jpg'),
+('JorgeFernandez', 'jorge.fernandez@gmail.com', '2023-10-03', 'Pwd12345!', 'jorge.jpg'),
+('IsabellaLuna', 'isabella.luna@hotmail.com', '2023-10-04', 'SecurePwd1!', 'isabella.jpg');
+
+
+INSERT INTO Videojuego (Titulo, Descripcion, Año_de_lanzamiento, Plataforma, Portada, Likes) VALUES
+('The Witcher 3: Wild Hunt', 'Un juego de rol de acción ambientado en un mundo abierto.', '2015-05-19', 'Steam', 'witcher3.jpg', 0),
+('Valorant', 'Un juego de disparos táctico en primera persona.', '2020-06-02', 'Riot Games', 'valorant.jpg', 0),
+('Halo: Combat Evolved', 'Un juego de disparos en primera persona de ciencia ficción.', '2001-11-15', 'Consola', 'halo.jpg', 0),
+('Minecraft', 'Un juego de construcción y aventuras en un mundo pixelado.', '2011-11-18', 'Microsoft store', 'minecraft.jpg', 0),
+('Among Us', 'Un juego de supervivencia y traición en el espacio.', '2018-11-16', 'Steam', 'amongus.jpg', 0),
+('The Legend of Zelda: Breath of the Wild', 'Un juego de aventuras y exploración en un mundo abierto.', '2017-03-03', 'Consola', 'zelda.jpg', 0),
+('Cyberpunk 2077', 'Un juego de rol de acción en un mundo futurista.', '2020-12-10', 'Steam', 'cyberpunk2077.jpg', 0),
+('League of Legends', 'Un juego de estrategia en línea multijugador.', '2009-10-27', 'Riot Games', 'lol.jpg', 0),
+('GTA V', 'Un juego de acción y aventuras en un mundo abierto.', '2013-09-17', 'Steam', 'gta5.jpg', 0),
+('Red Dead Redemption 2', 'Un juego de acción y aventuras en el Salvaje Oeste.', '2018-10-26', 'Consola', 'reddead2.jpg', 0);
+
+
+INSERT INTO Genero (Id_genero, Nombre_genero) VALUES
+(1, 'Acción'),
+(2, 'Aventura'),
+(3, 'Rol'),
+(4, 'Disparos'),
+(5, 'Estrategia'),
+(6, 'Simulación'),
+(7, 'Deportes'),
+(8, 'Puzzle'),
+(9, 'Plataforma'),
+(10, 'Horror'),
+(11, 'Sandbox');
+
+
+INSERT INTO Pertenece (Titulo, Id_genero) VALUES
+('The Witcher 3: Wild Hunt', 3),    -- Rol
+('Valorant', 4),                   -- Disparos
+('Halo: Combat Evolved', 4),       -- Disparos
+('Minecraft', 11),                  -- Sandbox
+('Among Us', 6),                   -- Simulación
+('The Legend of Zelda: Breath of the Wild', 2), -- Aventura
+('Cyberpunk 2077', 1),             -- Acción
+('League of Legends', 5),          -- Estrategia
+('GTA V', 1),                      -- Acción
+('Red Dead Redemption 2', 1),     -- Acción	
+('Cyberpunk 2077', 4);           -- Añadir a Disparos
+
+
+INSERT INTO Comentario (Id_usuario, Titulo, Fecha_de_comentario, Texto) VALUES
+(1, 'The Witcher 3: Wild Hunt', '2023-09-26', '¡Me encanta este juego! La historia y los gráficos son increíbles.'),
+(3, 'Halo: Combat Evolved', '2023-09-28', '¡Un clásico! Pasé horas jugando esto en mi consola cuando era más joven.'),
+(4, 'Minecraft', '2023-09-29', 'Minecraft es perfecto para la creatividad, he construido mundos enteros.'),
+(9, 'GTA V', '2023-10-04', 'La historia de este juego es una locura, y el mundo abierto es gigantesco.'),
+(10, 'Red Dead Redemption 2', '2023-10-05', 'Una obra maestra en términos de narrativa y ambientación.'),
+(1, 'The Witcher 3: Wild Hunt', '2023-10-06', 'Es un buen juego, pero algunas misiones son un poco tediosas.'),
+(2, 'Valorant', '2023-10-07', 'Me gustó, pero a veces la comunidad puede ser tóxica.'),
+(5, 'Among Us', '2023-10-10', 'Divertido, pero se vuelve repetitivo después de un tiempo.'),
+(6, 'The Legend of Zelda: Breath of the Wild', '2023-10-11', 'El combate podría ser más desafiante, pero la exploración es genial.'),
+(7, 'Cyberpunk 2077', '2023-10-12', 'Tuvo problemas de rendimiento en mi PC, pero la historia es interesante.'),
+(8, 'League of Legends', '2023-10-13', 'A veces las partidas son frustrantes debido a jugadores no cooperativos.');
+
+
+INSERT INTO Interactua (Titulo, Id_usuario) VALUES
+('The Witcher 3: Wild Hunt', 1),
+('Valorant', 2),
+('Halo: Combat Evolved', 3),
+('Minecraft', 4),
+('Among Us', 5),
+('The Legend of Zelda: Breath of the Wild', 6),
+('Cyberpunk 2077', 7),
+('League of Legends', 8),
+('GTA V', 9),
+('Red Dead Redemption 2', 10),
+('The Witcher 3: Wild Hunt', 2),
+('Valorant', 3),
+('Halo: Combat Evolved', 4),
+('Minecraft', 5),
+('Among Us', 6),
+('The Legend of Zelda: Breath of the Wild', 7),
+('Cyberpunk 2077', 8),
+('League of Legends', 9),
+('GTA V', 10),
+('Red Dead Redemption 2', 1);
+
+
+INSERT INTO Lista_videojuegos (Id_usuario, Fecha_creacion, Titulo_lista, Descripcion_lista) VALUES
+(1, '2023-10-05', 'Juegos de Rol', 'Mis juegos de rol preferidos.'),
+(2, '2023-10-06', 'Lista de Disparos', 'Otra lista de juegos de disparos que disfruto.'),
+(3, '2023-10-07', 'Mis Clásicos', 'Más juegos clásicos que adoro.'),
+(4, '2023-10-08', 'Lista de Exploración', 'Exploración en juegos es mi pasión.'),
+(5, '2023-10-09', 'Juegos de Aventuras', 'Juegos de aventuras que me emocionan.'),
+(6, '2023-10-10', 'Lista de Estrategia', 'Juegos de estrategia que me hacen pensar.'),
+(7, '2023-10-11', 'Mis Favoritos', 'Una lista de juegos que no puedo dejar de jugar.'),
+(8, '2023-10-12', 'Lista de MOBA', 'Más juegos MOBA para probar.'),
+(9, '2023-10-13', 'Juegos Multijugador', 'Otra lista de juegos para jugar con amigos.'),
+(10, '2023-10-14', 'Lista de Exploración', 'Explorar mundos virtuales es mi pasión.'),
+(1, '2023-10-15', 'Lista de Juegos Indie', 'Explorando el mundo de los juegos indie.'),
+(2, '2023-10-16', 'Lista de Estrategia por Turnos', 'Juegos de estrategia por turnos que me desafían.'),
+(3, '2023-10-17', 'Lista de Juegos de Deportes', 'Mis juegos deportivos favoritos.'),
+(4, '2023-10-18', 'Lista de Juegos de Simulación', 'Simuladores que me sumergen en diferentes mundos.'),
+(5, '2023-10-19', 'Lista de Juegos Cooperativos', 'Juegos que disfruto jugando en cooperativo.'),
+(6, '2023-10-20', 'Lista de Juegos de Rol', 'Explorando historias épicas en juegos de rol.'),
+(7, '2023-10-21', 'Lista de Juegos de Puzzle', 'Puzzles desafiantes para ejercitar la mente.'),
+(8, '2023-10-22', 'Lista de Juegos de Carreras', 'Velocidad y competencia en juegos de carreras.'),
+(9, '2023-10-23', 'Lista de Juegos de Plataforma', 'Aventuras de saltos y plataformas.'),
+(10, '2023-10-24', 'Lista de Juegos Históricos', 'Explorando eventos históricos en videojuegos.');
+
+
+
+INSERT INTO contiene (Id_lista, Titulo) VALUES
+(1, 'Cyberpunk 2077'),
+(1, 'GTA V'),
+(2, 'Valorant'),
+(3, 'The Legend of Zelda: Breath of the Wild'),
+(4, 'Valorant'),
+(5, 'Red Dead Redemption 2'),
+(6, 'League of Legends'),
+(7, 'Among Us'),
+(8, 'Halo: Combat Evolved'),
+(9, 'The Witcher 3: Wild Hunt'),
+(10, 'Valorant'),
+(11, 'The Legend of Zelda: Breath of the Wild'),
+(12, 'Valorant'),
+(13, 'Red Dead Redemption 2'),
+(14, 'Cyberpunk 2077'),
+(15, 'GTA V'),
+(16, 'Halo: Combat Evolved'),
+(17, 'Among Us'),
+(18, 'The Witcher 3: Wild Hunt'),
+(19, 'League of Legends'),
+(20, 'Cyberpunk 2077');
+
+
+INSERT INTO Follow (Id_seguidor, Id_seguido)
+VALUES
+(1, 2),   -- JuanPerez sigue a MariaGomez
+(1, 3),   -- JuanPerez sigue a LuisMartinez
+(2, 4),   -- MariaGomez sigue a AnaRodriguez
+(2, 5),   -- MariaGomez sigue a CarlosGonzalez
+(3, 6),   -- LuisMartinez sigue a LauraLopez
+(3, 7),   -- LuisMartinez sigue a DiegoRamirez
+(4, 8),   -- AnaRodriguez sigue a SofiaDiaz
+(4, 9),   -- AnaRodriguez sigue a JorgeFernandez
+(5, 10),  -- CarlosGonzalez sigue a IsabellaLuna
+(6, 1),   -- LauraLopez sigue a JuanPerez
+(7, 2),   -- DiegoRamirez sigue a MariaGomez
+(8, 3),   -- SofiaDiaz sigue a LuisMartinez
+(9, 4),   -- JorgeFernandez sigue a AnaRodriguez
+(10, 5);  -- IsabellaLuna sigue a CarlosGonzalez
+
+
+UPDATE 
+
+UPDATE Usuario
+SET Contraseña = 'cambiandocontraseña'
+WHERE Id_usuario = 3;
+
+UPDATE Videojuego
+SET Likes = Likes + 5
+WHERE Titulo = 'Minecraft';
+

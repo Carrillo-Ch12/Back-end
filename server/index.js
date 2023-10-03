@@ -6,8 +6,8 @@ const usuario =require('./routes/user');
 const juego = require('./routes/Biblioteca')
 
 const app = express();
-app.use("/usuarios", usuario)
 
+app.use("/usuarios", usuario)
 app.use("/juegos",juego)
 
 

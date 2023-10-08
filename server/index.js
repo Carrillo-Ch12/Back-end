@@ -1,38 +1,51 @@
 const express = require("express");
 const cors = require("cors");
 const mysql = require("mysql2");
-const bd = require('./database/Config');
-const usuario =require('./routes/user');
-const juego = require('./routes/Biblioteca')
 const app = express();
-const allowedOrigin = 'http://localhost:5173';
 
-app.use(cors({
-    origin: allowedOrigin,
-    credentials: true, // Allow credentials (cookies, etc.)
-  }));
+const bd = {
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  database: 'progra_web'
+};
 
-app.use("/usuarios", usuario)
-app.use("/juegos",juego)
+app.use(cors());
+app.use(express.json());
 
+app.post('/login', (req, res) => {
+  const { Nombre_usuario, Contraseña } = req.body;
 
-app.post('login',(req,res)=>{
-    const{ user,password }=req.body
-    const values =[user,password]
-    var connection = mysql.createConnection(bd)
-    connection.query("SELECT * FROM usuario WHERE Nombre_usuario = ? AND  Contraseña = ?", values, (err, result)=>{
-        if(err){res.status(500).send(err)}
-        else{
-            if(result.length>0){
-                res.status(200).send(result[0])
-            }else{
-                res.status(400).send('Ususario no existe')
-            }
+  if (!Nombre_usuario || !Contraseña) {
+    res.status(400).json({ error: 'Nombre de usuario y contraseña son obligatorios' });
+    return;
+  }
 
+  const values = [Nombre_usuario, Contraseña];
+  const connection = mysql.createConnection(bd);
+
+  connection.connect((err) => {
+    if (err) {
+      console.error('Error en la conexión:', err);
+      res.status(500).json({ error: 'Error en la conexión a la base de datos' });
+      return;
+    }
+
+    connection.query("SELECT * FROM usuario WHERE Nombre_usuario = ? AND Contraseña = ?", values, (err, result) => {
+      if (err) {
+        console.error('Error en la consulta:', err);
+        res.status(500).json({ error: 'Error en la consulta a la base de datos' });
+      } else {
+        if (result.length > 0) {
+          res.status(200).json(result[0]);
+        } else {
+          res.status(400).json({ error: 'Usuario no existe' });
         }
-    })
-    connection.end()
-})
+      }
+      
+      connection.end();
+    });
+  });
+});
 
-
-app.listen(4001, () => console.log('Inicio de servidor'))
+app.listen(4001, () => console.log('Inicio de servidor'));

@@ -7,8 +7,8 @@ app.use(cors());
 app.use(express.json());
 
 const login = require('./routes/Login');
-
 app.use('/log',login)
+
 const usuario = require('./routes/user');
 app.use('/usuario', usuario)
 

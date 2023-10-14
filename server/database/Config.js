@@ -11,4 +11,4 @@ const bd = mysql.createConnection( {
         else{console.log('no se conecto')}
 });
 
-module.exports =bd;
+module.exports = bd;

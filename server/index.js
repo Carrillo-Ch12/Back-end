@@ -1,14 +1,20 @@
 const express = require("express");
 const cors = require("cors");
-const mysql = require("mysql2");
-const bd = require('./database/Config');
-const usuario =require('./routes/user');
-const juego = require('./routes/Biblioteca')
-
 const app = express();
 
-app.use("/usuarios", usuario)
-app.use("/juegos",juego)
+
+app.use(cors());
+app.use(express.json());
+
+const login = require('./routes/Login');
+app.use('/api/log',login)
+
+const usuario = require('./routes/user');
+app.use('/usuario', usuario)
+
+const Registro = require('./routes/Registro');
+app.use('/api/Registro', Registro)
 
 
-app.listen(4001, () => console.log('Inicio de servidor'))
+
+app.listen(4001, () => console.log('Inicio de servidor'));

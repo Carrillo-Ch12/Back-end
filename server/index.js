@@ -15,6 +15,9 @@ app.use('/usuario', usuario)
 const Registro = require('./routes/Registro');
 app.use('/api/Registro', Registro)
 
+const biblioteca = require('./routes/Biblioteca');
+app.use('/biblioteca', biblioteca)
+
 
 
 app.listen(4001, () => console.log('Inicio de servidor'));

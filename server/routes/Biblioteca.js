@@ -1,9 +1,9 @@
-const express = require("express");
-const Router = express.Router();
-const db = require('../database/Config');
-const juegos = require('../controllers/bilbioteca')
+// router.js
+const express = require('express');
+const router = express.Router();
+const mostrarJuegos = require('../controllers/biblioteca');
 
+// Configura una ruta para mostrar juegos
+router.get('/', mostrarJuegos);
 
-Router.get('/',juegos)
-
-module.exports = Router;
+module.exports = router;

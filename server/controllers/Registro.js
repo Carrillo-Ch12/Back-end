@@ -8,19 +8,18 @@ const db = {
 };
 
 const registro = async (req, res) => {
-  const { Nombre_usuario, Correo, Contraseña, Foto_de_perfil } = req.body; // Cambiado de FotoPerfil a Foto_de_perfil
-
-  if (!Nombre_usuario || !Correo || !Contraseña || !Foto_de_perfil) { // Agregado !Correo y !Foto_de_perfil
+  const { Nombre_usuario, Correo, Contraseña, Foto_de_perfil } = req.body; 
+  if (!Nombre_usuario || !Correo || !Contraseña || !Foto_de_perfil) { 
     res.status(400).json({ error: 'Nombre de usuario, contraseña, correo y foto de perfil son obligatorios' });
     return;
   }
 
-  const values = [Nombre_usuario, Correo, Contraseña, Foto_de_perfil]; // Cambiado de FotoPerfil a Foto_de_perfil
+  const values = [Nombre_usuario, Correo, Contraseña, Foto_de_perfil]; 
 
   try {
     const connection = await mysql.createConnection(db);
 
-    const [rows] = await connection.execute('INSERT INTO usuario (Nombre_usuario, Correo, Contraseña, Foto_de_perfil) VALUES (?, ?, ?, ?)', values); // Cambiado de FotoPerfil a Foto_de_perfil
+    const [rows] = await connection.execute('INSERT INTO usuario (Nombre_usuario, Correo, Contraseña, Foto_de_perfil) VALUES (?, ?, ?, ?)', values);
 
     if (rows.affectedRows > 0) {
       res.status(201).json({ message: 'Usuario registrado exitosamente' });

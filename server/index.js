@@ -8,7 +8,6 @@ app.use(express.json());
 
 const login = require('./routes/Login');
 app.use('/api/log',login)
- 
 
 const usuario = require('./routes/user');
 app.use('/usuario', usuario)

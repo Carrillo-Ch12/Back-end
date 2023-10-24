@@ -20,7 +20,5 @@ app.use('/biblioteca', biblioteca)
 const consulta1 = require('./routes/consultas');
 app.use('/', consulta1);
 
-const consulta2 = require("./routes/consultas");
-app.use('/', consulta2);
 
 app.listen(4001, () => console.log('Inicio de servidor'));

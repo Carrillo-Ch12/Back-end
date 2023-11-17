@@ -1,4 +1,4 @@
-const db = require('../database/Config')
+const db = require('../database/Config_mysql')
 
 
  const mostrar_usuario= (req,res)=>{

@@ -4,5 +4,5 @@ const logeo = require('../controllers/Login');
 const Router = express.Router();
 
 
-Router.post('/', logeo)
+Router.post('/api/log', logeo)
 module.exports = Router;

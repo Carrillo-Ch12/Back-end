@@ -4,6 +4,6 @@ const router = express.Router();
 const mostrarJuegos = require('../controllers/biblioteca');
 
 // Configura una ruta para mostrar juegos
-router.get('/', mostrarJuegos);
+router.get('/biblioteca', mostrarJuegos);
 
 module.exports = router;

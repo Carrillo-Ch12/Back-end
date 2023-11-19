@@ -7,15 +7,14 @@ const db = {
   database: 'progra_web'
 };
 
-// ... (código existente)
+
 
 const Perfil = async (req, res) => {
-  const { Nombre } = req.params; // Cambiado de req.body a req.params
-  // const values = Id; // Comentado ya que no parece estar siendo utilizado
+  const { Nombre } = req.params; 
 
   try {
     const connection = await mysql.createConnection(db);
-    const [rows] = await connection.query('SELECT * FROM usuario WHERE Nombre_usuario = ?', [Nombre]); // Cambiado de values a [Nombre]
+    const [rows] = await connection.query('SELECT * FROM usuario WHERE Nombre_usuario = ?', [Nombre]);
 
     if (rows.length > 0) {
       res.status(200).json(rows[0]);
@@ -30,7 +29,7 @@ const Perfil = async (req, res) => {
   }
 };
 
-// ... (código existente)
+
 
 module.exports = Perfil;
 

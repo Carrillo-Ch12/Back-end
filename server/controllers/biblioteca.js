@@ -1,4 +1,4 @@
-const db = require('../database/Config');
+const db = require('../database/Config_mysql');
 
 const mostrarJuegos = (req, res) => {
   db.query("SELECT * FROM videojuego", (err, rows, fields) => {

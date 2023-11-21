@@ -1,4 +1,4 @@
-const db = require('../database/Config');
+const db = require('../database/Config_mysql');
 
 //Consulta 1: Busca los juegos que tienen más de un like en una plataforma específica
 const Consulta1 = async (req, res) => {

@@ -1,24 +1,27 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
+require('./database/Config_mongo')
 
 app.use(cors());
 app.use(express.json());
 
 const login = require('./routes/Login');
-app.use('/api/log', login);
+app.use('/', login);
 
 const usuario = require('./routes/user');
-app.use('/usuario', usuario);
+app.use('/', usuario);
 
 const Registro = require('./routes/Registro');
-app.use('/api/Registro', Registro);
+app.use('/', Registro);
 
 const biblioteca = require('./routes/Biblioteca');
-app.use('/biblioteca', biblioteca)
+app.use('/', biblioteca)
 
 const consulta1 = require('./routes/consultas');
 app.use('/', consulta1);
 
+const Perfil = require('./routes/Perfil')
+app.use('/',Perfil)
 
 app.listen(4001, () => console.log('Inicio de servidor'));

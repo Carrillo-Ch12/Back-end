@@ -4,5 +4,5 @@ const Registro = require('../controllers/Registro');
 const Router = express.Router();
 
 
-Router.post('/', Registro)
+Router.post('/api/Registro', Registro)
 module.exports = Router;

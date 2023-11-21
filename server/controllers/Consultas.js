@@ -1,4 +1,4 @@
-const db = require('../database/Config');
+const db = require('../database/Config_mysql');
 
 const Consulta1 = async (req, res) => {
   db.query("SELECT v.Titulo, v.Likes FROM Videojuego v JOIN Se_encuentra se ON v.Titulo = se.Titulo WHERE se.Id_plataforma = 1 AND v.Likes > 1", (err, rows, fields) => {

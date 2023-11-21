@@ -32,6 +32,3 @@ const Perfil = async (req, res) => {
 
 
 module.exports = Perfil;
-
-
-module.exports = Perfil;

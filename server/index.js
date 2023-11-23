@@ -27,4 +27,7 @@ app.use('/',Perfil)
 const Juego = require('./routes/Juego')
 app.use('/',Juego)
 
+const Lista_juegos = require('./routes/Lista_juegos')
+app.use('/',Lista_juegos)
+
 app.listen(4001, () => console.log('Inicio de servidor'));

@@ -1,13 +1,14 @@
 const mysql =require('mysql2');
+const values = require('../const/const.js');
 
 const bd = mysql.createConnection( {
-    host: 'localhost',
-    user: 'root',
+    host: values.HOST,
+    user: values.USER,
     password: '',
-    database: 'progra_web'
+    database: values.DATABASE
   });
   bd.connect((err)=>{
-        if(!err){ console.log('se conecto')}
+        if(!err){ console.log('MySQL Conectado!')}
         else{console.log('no se conecto')}
 });
 

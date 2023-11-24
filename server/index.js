@@ -2,12 +2,16 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 require('./database/Config_mongo')
+require('./database/Config_mysql')
 
 app.use(cors());
 app.use(express.json());
 
 const login = require('./routes/Login');
 app.use('/', login);
+
+const comentario = require('./routes/comentario.js');
+app.use('/', comentario);
 
 const usuario = require('./routes/user');
 app.use('/', usuario);

@@ -1,4 +1,4 @@
-import 'dotenv/config.js';
+require('dotenv').config();
 
 /* These lines of code are assigning values to constants using the values of environment variables. The
 `process.env` object in Node.js provides access to environment variables. */
@@ -29,4 +29,4 @@ const object = {
 
 Object.freeze(object) //The Object.freeze() static method freezes an object
 
-export default object;
+module.exports = object;

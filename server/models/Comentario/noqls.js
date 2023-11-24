@@ -6,7 +6,7 @@ const comentarioSchema = new Schema({
         type: Schema.Types.ObjectId, ref:'Usuario',
     },
     titulo: {
-        type: Schema.Types.ObjectId, ref:'Titulo'
+        type: Schema.Types.ObjectId, ref:'Videojuego',
     },
     texto: {
         type: String,

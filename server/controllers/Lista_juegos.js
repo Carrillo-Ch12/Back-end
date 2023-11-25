@@ -16,7 +16,7 @@ const Agregar = async (req, res) => {
 
     const [rows] = await connection.query('INSERT INTO contiene (Id_lista, Titulo) VALUES (?, ?)', [Id_lista, Nombre_juego]);
     console.log(rows)
-    if (rows.aff > 0) {
+    if (rows.affectedRows > 0) {
       res.status(200).json(rows[0]);
     } else {
       res.status(400).json({ error: 'Juego no encontrado' });

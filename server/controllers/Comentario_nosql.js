@@ -1,16 +1,23 @@
-const Comentario = require('../models/Comentario/nosql.js');
+const Comentario = require('../models/Comentario/noqls'); 
 
 const crearComentario = async (req, res) => {
     try {
-        const data = req.body;
-        const comentario = new Comentario(data);
+        const { idUsuario, Titulo, Texto } = req.body;
+
+        if (!idUsuario || !Titulo || !Texto) {
+            return res.status(400).json({
+                success: false,
+                message: "Los campos idUsuario, Titulo y Texto son obligatorios."
+            });
+        }
+        const comentario = new Comentario({ idUsuario, Titulo, Texto });
         await comentario.save();
 
         return res.status(201).json({
             success: true,
-            message: "Comentario creado"
+            message: "Comentario creado exitosamente",
+            data: comentario
         });
-
     } catch (error) {
         console.error(error);
         return res.status(500).json({
@@ -19,16 +26,17 @@ const crearComentario = async (req, res) => {
         });
     }
 };
+
 
 const obtenerComentarios = async (req, res) => {
     try {
-        //const comentario = new Comentario(data)
-        const tituloJuego = req.query.tituloJuego;
+        const { tituloJuego } = req.params;
         const comentarios = await Comentario.find({ Titulo: tituloJuego });
-        console.log(comentarios)
+
         return res.status(200).json({
             success: true,
-            comentarios
+            message: "Comentarios obtenidos",
+            data: comentarios
         });
     } catch (error) {
         console.error(error);
@@ -38,6 +46,8 @@ const obtenerComentarios = async (req, res) => {
         });
     }
 };
+
+
 
 module.exports = {
     crearComentario,

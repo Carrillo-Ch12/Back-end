@@ -1,4 +1,5 @@
 const mysql = require('mysql2/promise');
+
 const db = {
   host: 'localhost',
   user: 'root',
@@ -72,4 +73,3 @@ const Mostrar_Lista= async (req, res) => {
 };
  
 module.exports = {Agregar, Eliminar, Mostrar_Lista};
-

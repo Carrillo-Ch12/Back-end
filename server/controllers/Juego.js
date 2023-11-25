@@ -69,5 +69,3 @@ const Juego = async (req, res) => {
 
 
 module.exports = {Juego,Plataforma,Genero};
-
-

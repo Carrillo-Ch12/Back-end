@@ -4,30 +4,29 @@ const { Schema, model } = mongoose;
 const videojuegoSchema = new Schema({
     Titulo: {
         type: String,
-        require: true,
-        maxlenght: 255,
+        required: true,
+        maxlength: 255,
         unique: true
     },
     Descripcion: {
         type: String,
-        require: true,
-        maxlenght: 511
+        required: true,
+        maxlength: 511
     },
-    Año_de_lanzamiento: {
+    Anio_de_lanzamiento: {
         type: Date,
-        require: true,
+        required: true,
     },
     Portada: {
         type: String,
-        require: true,
-        maxlenght: 511
+        required: true,
+        maxlength: 511
     },
     Likes: {
-        type: Int32Array,
-        require: false,
-        maxlenght: 10
+        type: Number,
+        required: false,
+        max: 10
     }
-    
 }, {
     timestamps: {
         createdAt: 'timestamp'

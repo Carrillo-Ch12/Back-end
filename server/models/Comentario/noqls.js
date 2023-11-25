@@ -3,15 +3,17 @@ const { Schema, model } = mongoose;
 
 const comentarioSchema = new Schema({
     idUsuario: {
-        type: Schema.Types.ObjectId, ref:'Usuario',
-    },
-    titulo: {
-        type: Schema.Types.ObjectId, ref:'Titulo'
-    },
-    texto: {
         type: String,
-        require: true,
-        maxlenght: 511
+        required: true,
+    },
+    Titulo: {
+        type: String,
+        required: true,
+    },
+    Texto: {
+        type: String,
+        required: true,
+        maxlength: 511
     }
 }, {
     timestamps: {
@@ -19,10 +21,4 @@ const comentarioSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model("Comentario", comentarioSchema);
-
-// asi se trae la info
-// const variableRetorno = await Modelo.
-//   findOne({ filtros }).
-//   populate('paarmetroDeIndexacion').
-//   exec();
+module.exports = model("Comentario", comentarioSchema, "Comentario");

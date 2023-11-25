@@ -5,10 +5,10 @@ const comentarioSchema = new Schema({
     idUsuario: {
         type: Schema.Types.ObjectId, ref:'Usuario',
     },
-    titulo: {
+    Titulo: {
         type: Schema.Types.ObjectId, ref:'Videojuego',
     },
-    texto: {
+    Texto: {
         type: String,
         require: true,
         maxlenght: 511
@@ -19,7 +19,7 @@ const comentarioSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model("Comentario", comentarioSchema);
+module.exports = mongoose.model("Comentario", comentarioSchema, "Comentario");
 
 // asi se trae la info
 // const variableRetorno = await Modelo.

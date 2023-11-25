@@ -1,27 +1,43 @@
-const Comentario = require('../models/Comentario/noqls.js');
+const Comentario = require('../models/Comentario/nosql.js');
 
-const crearComentario = async ( req, res ) => {
+const crearComentario = async (req, res) => {
     try {
-
-        const data = req.body; //ifnormacion por el cuerpo de http
+        const data = req.body;
         const comentario = new Comentario(data);
-
         await comentario.save();
-        
+
         return res.status(201).json({
             success: true,
-            message:"Comentario creado"
+            message: "Comentario creado"
         });
-        
+
     } catch (error) {
-        console.log(error);
+        console.error(error);
         return res.status(500).json({
             success: false,
             error
         });
-    };
+    }
+};
+
+const obtenerComentarios = async (req, res) => {
+    try {
+        const comentarios = await Comentario.find();
+        console.log(comentarios)
+        return res.status(200).json({
+            success: true,
+            comentarios
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            success: false,
+            error
+        });
+    }
 };
 
 module.exports = {
-    crearComentario
-}
+    crearComentario,
+    obtenerComentarios
+};

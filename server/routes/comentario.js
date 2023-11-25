@@ -5,7 +5,7 @@ const router = express.Router();
 router.route('/create/nosql')
     .post(crearComentario);
 
-router.route('/getAll/nosql')
+router.route('/getAll/nosql/:tituloJuego')
     .get(obtenerComentarios);
 
 module.exports = router;

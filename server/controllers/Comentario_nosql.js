@@ -22,7 +22,9 @@ const crearComentario = async (req, res) => {
 
 const obtenerComentarios = async (req, res) => {
     try {
-        const comentarios = await Comentario.find();
+        //const comentario = new Comentario(data)
+        const tituloJuego = req.query.tituloJuego;
+        const comentarios = await Comentario.find({ Titulo: tituloJuego });
         console.log(comentarios)
         return res.status(200).json({
             success: true,

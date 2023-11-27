@@ -32,7 +32,7 @@ const Agregar = async (req, res) => {
 
 const Eliminar= async (req, res) => {
   const { Nombre_usuario, Nombre_juego } = req.params;
-
+  
     try {
       const connection = await mysql.createConnection(db);
       const [userData] = await connection.execute('SELECT lv.Id_lista FROM lista_videojuegos lv JOIN usuario u ON lv.Id_usuario = u.Id_usuario WHERE u.Nombre_usuario= ?', [Nombre_usuario]);
@@ -52,6 +52,7 @@ const Eliminar= async (req, res) => {
       res.status(500).json({ error: 'Error en la consulta a la base de datos' });
     }
 };
+
 const Mostrar_Lista= async (req, res) => {
     const { Nombre_usuario } = req.params; 
   
@@ -72,4 +73,10 @@ const Mostrar_Lista= async (req, res) => {
     }
 };
  
+
+
+
+
 module.exports = {Agregar, Eliminar, Mostrar_Lista};
+
+

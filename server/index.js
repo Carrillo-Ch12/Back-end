@@ -8,6 +8,9 @@ app.use(cors());
 app.use(express.json()); // Para analizar solicitudes con contenido de tipo "application/json"
 app.use(express.urlencoded({ extended: true })); // Para analizar solicitudes con contenido de tipo "application/x-www-form-urlencoded"
 
+app.use(cors());
+app.use(express.json());
+
 const login = require('./routes/Login');
 app.use('/', login);
 
